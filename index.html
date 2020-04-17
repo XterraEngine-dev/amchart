@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <!-- Styles -->
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Resources -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+
+    <!-- Chart code -->
+    <script>
+        am4core.ready(function () {
+
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            var chart = am4core.create("chartdiv", am4charts.PieChart3D);
+            chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+            chart.legend = new am4charts.Legend();
+
+
+            let codigoTareas = [
+                {
+                    tipo: "tarea 1",
+                    codigo: 90
+                },
+                {
+                    tipo: "tarea 2",
+                    codigo: 50
+                },
+                {
+                    tipo: "tarea 4",
+                    codigo: 30
+                },
+                {
+                    tipo: "tarea 5",
+                    codigo: 40
+                }
+            ]
+
+            let organizacion = [
+                {
+                    tipo: "INACOP",
+                    codigo: 8
+                }
+            ]
+
+            let sexo = [
+                {
+                    tipo: "MUJER",
+                    codigo: 4
+                },
+                {
+                    tipo: "HOMBRE",
+                    codigo: 4
+                }
+            ]
+
+            let edad = [
+                {
+                    tipo: "4",
+                    codigo: 3
+                }, {
+                    tipo: "3",
+                    codigo: 4
+                },
+            ]
+
+            let pueblos = [
+                {
+                    tipo: "Maya",
+                    codigo: 5
+
+                }, {
+                    tipo: "Garifuna",
+                    codigo: 4
+                }, {
+                    tipo: "Xinca",
+                    codigo: 9
+                }, {
+                    tipo: "Mestizo",
+                    codigo: 16
+                }, {
+                    tipo: "Otros",
+                    codigo: 80
+                }
+            ]
+
+            let comunidad = [
+                {
+                    tipo: "Awakateka",
+                    codigo: 50
+                },
+                {
+                    tipo: "Ixil",
+                    codigo: 50
+                }
+            ]
+
+            let sector = [
+                {
+                    tipo: "SECTOR 1",
+                    codigo: 50
+                }
+            ]
+
+            let municipio = [
+                {
+                    tipo: "Huehuetenango",
+                    codigo: 50
+                },
+                {
+                    tipo: "Quetzaltenango",
+                    codigo: 50
+                }
+            ]
+
+            let departamento = [
+                {
+                    tipo: "Huehuetenango",
+                    codigo: 30
+                },
+                {
+                    tipo: "Quetzaltenango",
+                    codigo: 40
+                }
+            ]
+
+            let data = []
+
+
+            const render = (dataSelec) => {
+
+
+                chart.data = dataSelec
+
+
+
+
+            }
+
+
+            $("#codigo_tarea").click(function () {
+                removeSeries();
+                data = codigoTareas;
+                render(data)
+            });
+            $("#organizacion").click(function () {
+                removeSeries();
+                data = organizacion;
+                render(data)
+            });
+
+            $("#sexo").click(function () {
+                removeSeries();
+                data = sexo;
+                render(data)
+            });
+
+            $("#edad").click(function () {
+                removeSeries();
+                data = edad;
+                render(data)
+            });
+            $("#pueblos").click(function () {
+                removeSeries();
+                data = pueblos;
+                render(data)
+            });
+
+            $("#comunidad_linguistica").click(function () {
+                removeSeries();
+                data = comunidad;
+                render(data)
+            });
+
+            $("#sector").click(function () {
+                removeSeries();
+                data = sector;
+                render(data)
+            });
+
+
+            $("#municipio").click(function () {
+                removeSeries();
+                data = municipio;
+                render(data)
+            });
+
+            $("#departamento").click(function () {
+                removeSeries();
+                data = departamento;
+                render(data)
+
+            });
+
+            let series = chart.series.push(new am4charts.PieSeries3D());
+            series.dataFields.value = "codigo";
+            series.dataFields.category = "tipo";
+            series.labels.template.disabled = true;
+
+
+            function removeSeries() {
+                if (chart.series.length > 1) {
+                    chart.series.removeIndex(0).dispose();
+                }
+            }
+
+
+
+
+        }); // end am4core.ready()
+    </script>
+
+    <title>PIE</title>
+</head>
+
+<body>
+    <div id="chartdiv"></div>
+    <div class="container">
+        <div class="row" alt="center">
+            <div class="col-sm-12">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        DIMENSIONES
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="">
+                        <a class="dropdown-item" id="codigo_tarea">CODIGO TAREA</a>
+                        <a class="dropdown-item" id="organizacion">ORGANIZACION</a>
+                        <a class="dropdown-item" id="sexo">SEXO</a>
+                        <a class="dropdown-item" id="edad">EDAD</a>
+                        <a class="dropdown-item" id="pueblos">PUEBLOS</a>
+                        <a class="dropdown-item" id="comunidad_linguistica">COMUNIDAD LING</a>
+                        <a class="dropdown-item" id="sector">SECTOR</a>
+                        <a class="dropdown-item" id="municipio">MUNICIPIO</a>
+                        <a class="dropdown-item" id="departamento">DEPARTAMENTO</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
